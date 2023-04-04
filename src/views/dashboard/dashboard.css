@@ -1,0 +1,37 @@
+.randomResult {
+    font-size: 5vw;
+    max-height:80%;
+    text-justify: inter-character;
+    overflow: scroll;
+    /*overflow: scroll;*/
+    text-align: center;
+    font-weight: bold;
+}
+
+.code {
+    --bg-size: 400%;
+    --color-one: hsl(15 90% 55%);
+    --color-two: hsl(40 95% 55%);
+    --color-three: purple;
+    --color-four: blue;
+    --color-five: green;
+    --color-six: cyan;
+    background: linear-gradient(90deg,
+    var(--color-one),
+    var(--color-two),
+    var(--color-three),
+    var(--color-four),
+    var(--color-five),
+    var(--color-six),
+    var(--color-one)) 0 0 / var(--bg-size) 100%;
+    color: transparent;
+    background-clip: text;
+    animation: move-bg 8s linear infinite;
+
+}
+
+@keyframes move-bg {
+    to {
+        background-position: var(--bg-size) 0;
+    }
+}
