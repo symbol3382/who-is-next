@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card, CardContent, Grid, IconButton, TextField, Tooltip} from "@mui/material";
-import {Add, Close} from "@mui/icons-material";
+import {Add, Close, Shuffle} from "@mui/icons-material";
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import './dashboard.css';
 
 const Dashboard = (props) => {
@@ -47,6 +48,24 @@ const Dashboard = (props) => {
         setRandomResult(newFields[random]);
     }
 
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            // Generate random number
+            const j = Math.floor(Math.random() * (i + 1));
+            const temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+
+        return array;
+    }
+
+    const shuffleList = () => {
+        let newFields = fields.filter(field => field);
+        let shuffled = shuffleArray(newFields);
+        setRandomResult(shuffled)
+    }
+
     return <>
         <Grid container spacing={3} padding={"2vh"} justifyContenr={"center"}>
             <Grid item lg={3}>
@@ -85,7 +104,7 @@ const Dashboard = (props) => {
                                         </Grid>
                                         <Grid item lg={2}>
                                             <IconButton>
-                                            <Close onClick={removeField(index)}/>
+                                                <Close onClick={removeField(index)}/>
                                             </IconButton>
                                         </Grid>
 
@@ -116,7 +135,15 @@ const Dashboard = (props) => {
                             {randomResult
                                 ? <Grid item lg={12} className={"randomResult"}>
                                     <div className={"code"}>
-                                        {randomResult.toUpperCase()}
+                                        {Array.isArray(randomResult) ?
+                                            randomResult.map(result => {
+                                                return <>
+                                                    {result} <br/>
+                                                </>
+                                            })
+                                        :
+                                        randomResult.toUpperCase()
+                                    }
                                     </div>
                                 </Grid>
                                 : <></>
@@ -132,7 +159,22 @@ const Dashboard = (props) => {
                                         variant={"contained"}
                                         disabled={!fields.filter(field => field).length}
                                     >
-                                        <Add/> Generate
+                                        <AutoAwesomeIcon/> Get Random Name
+                                    </Button>
+                                </Grid>
+                            </Tooltip>
+
+                            <Tooltip title={fields.filter(field => field).length <= 1
+                                ? "Add more than two items to shuffle"
+                                : ""
+                            } sx={{marginLeft: 2}}>
+                                <Grid item>
+                                    <Button
+                                        onClick={shuffleList}
+                                        variant={"contained"}
+                                        disabled={fields.filter(field => field).length <= 1}
+                                    >
+                                        <Shuffle/> Shuffle
                                     </Button>
                                 </Grid>
                             </Tooltip>
