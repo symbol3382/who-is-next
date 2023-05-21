@@ -91,7 +91,6 @@ const Dashboard = (props) => {
                                         alignItems={"center"}
                                     >
                                         <Grid item lg={10}>
-
                                             <TextField
                                                 onChange={handleNameUpdate(index)}
                                                 value={value}
@@ -100,6 +99,7 @@ const Dashboard = (props) => {
                                                 size={"small"}
                                                 fullWidth={true}
                                                 variant="filled"
+                                                autoFocus
                                             />
                                         </Grid>
                                         <Grid item lg={2}>
